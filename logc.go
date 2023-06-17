@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"fortio.org/cli"
@@ -48,6 +49,27 @@ func LevelToColor(levelStr string) (string, string) {
 	return "?", ""
 }
 
+func GetAttributes(line string) string {
+	idx1 := strings.Index(line, `"msg":"`)
+	if idx1 < 0 {
+		log.Critf("Bug line without msg tag %q", line)
+		return ""
+	}
+	idx2 := strings.Index(line[idx1+7:], `"`)
+	if idx2 < 0 {
+		log.Critf("Bug line without close quote %q", line)
+		return ""
+	}
+	idx2 += idx1 + 7
+	end := len(line) - 1
+	if idx2+1 == end {
+		log.Debugf("no attributes for %q", line)
+		return ""
+	}
+	log.Debugf("found attributes at %d/%d for %q", idx2, end, line)
+	return ": " + line[idx2+2:end] // better more efficient way?
+}
+
 func main() {
 	noColorFlag := flag.Bool("no-color", false, "Do not colorize output")
 	cli.Main()
@@ -81,7 +103,6 @@ func main() {
 		if noColor {
 			color = ""
 		}
-		fmt.Printf("%s%s %s %s:%d> %s%s\n", color, tsStr, lvl, e.File, e.Line, e.Msg, reset)
-
+		fmt.Printf("%s%s %s %s:%d> %s%s%s\n", color, tsStr, lvl, e.File, e.Line, e.Msg, GetAttributes(string(line)), reset)
 	}
 }
