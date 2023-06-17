@@ -1,0 +1,41 @@
+{"ts":1686957219738007,"level":"info","file":"scli.go","line":96,"msg":"Starting Φορτίο 1.55.0 h1:4V6Fzt3AANoGS9H3A88Ddz2rSyqwcjM90DXiGTKlCMA= go1.20.5 arm64 darwin"}
+{"ts":1686957219738897,"level":"crit","file":"network.go","line":146,"msg":"Can't listen to tcp socket 8078 (:8078) for tcp-echo: listen tcp :8078: bind: address already in use"}
+{"ts":1686957219738967,"level":"crit","file":"network.go","line":166,"msg":"[udp-echo] Can't ListenUDP to :8078: listen udp :8078: bind: address already in use"}
+{"ts":1686957219739017,"level":"crit","file":"network.go","line":146,"msg":"Can't listen to tcp socket 8079 (:8079) for grpc 'ping': listen tcp :8079: bind: address already in use"}
+{"ts":1686957219739059,"level":"crit","file":"network.go","line":146,"msg":"Can't listen to tcp socket 8081 (:8081) for https redirector: listen tcp :8081: bind: address already in use"}
+{"ts":1686957219739097,"level":"crit","file":"network.go","line":146,"msg":"Can't listen to tcp socket 8080 (:8080) for http-echo: listen tcp :8080: bind: address already in use"}
+{"ts":1686958276209257,"level":"info","file":"scli.go","line":96,"msg":"Starting Φορτίο 1.55.0 h1:4V6Fzt3AANoGS9H3A88Ddz2rSyqwcjM90DXiGTKlCMA= go1.20.5 arm64 darwin"}
+{"ts":1686958276210889,"level":"crit","file":"network.go","line":146,"msg":"Can't listen to tcp socket 8078 (:8078) for tcp-echo: listen tcp :8078: bind: address already in use"}
+{"ts":1686958276210976,"level":"crit","file":"network.go","line":166,"msg":"[udp-echo] Can't ListenUDP to :8078: listen udp :8078: bind: address already in use"}
+{"ts":1686960476211018,"level":"crit","file":"network.go","line":146,"msg":"Can't listen to tcp socket 8079 (:8079) for grpc 'ping': listen tcp :8079: bind: address already in use"}
+{"ts":1686958276211067,"level":"crit","file":"network.go","line":146,"msg":"Can't listen to tcp socket 8081 (:8081) for https redirector: listen tcp :8081: bind: address already in use"}
+{"ts":1686958276211117,"level":"crit","file":"network.go","line":146,"msg":"Can't listen to tcp socket 8080 (:8080) for http-echo: listen tcp :8080: bind: address already in use"}
+{"ts":1686958504171319,"level":"info","file":"scli.go","line":96,"msg":"Starting Φορτίο 1.55.0 h1:4V6Fzt3AANoGS9H3A88Ddz2rSyqwcjM90DXiGTKlCMA= go1.20.5 arm64 darwin"}
+16:35:04 Fortio 1.55.0 tcp-echo server listening on tcp [::]:8078
+16:35:04 Fortio 1.55.0 udp-echo server listening on udp [::]:8078
+16:35:04 Fortio 1.55.0 grpc 'ping' server listening on tcp [::]:8079
+16:35:04 Fortio 1.55.0 https redirector server listening on tcp [::]:8081
+16:35:04 Fortio 1.55.0 http-echo server listening on tcp [::]:8080
+16:35:04 Data directory is /Users/ldemailly/dev/fortio.org/logc
+16:35:04 REST API on /fortio/rest/run, /fortio/rest/status, /fortio/rest/stop, /fortio/rest/dns
+16:35:04 Debug endpoint on /debug, Additional Echo on /debug/echo/, Flags on /fortio/flags, and Metrics on /debug/metrics
+{"ts":1686958504173743,"level":"info","file":"fortio_main.go","line":292,"msg":"All fortio 1.55.0 h1:4V6Fzt3AANoGS9H3A88Ddz2rSyqwcjM90DXiGTKlCMA= go1.20.5 arm64 darwin servers started!"}
+{"ts":1686959995395055,"level":"info","file":"scli.go","line":96,"msg":"Starting Φορτίο 1.55.0 h1:4V6Fzt3AANoGS9H3A88Ddz2rSyqwcjM90DXiGTKlCMA= go1.20.5 arm64 darwin"}
+16:59:55 Fortio 1.55.0 tcp-echo server listening on tcp [::]:8078
+16:59:55 Fortio 1.55.0 udp-echo server listening on udp [::]:8078
+16:59:55 Fortio 1.55.0 grpc 'ping' server listening on tcp [::]:8079
+16:59:55 Fortio 1.55.0 https redirector server listening on tcp [::]:8081
+16:59:55 Fortio 1.55.0 http-echo server listening on tcp [::]:8080
+16:59:55 Data directory is /Users/ldemailly/dev/fortio.org/logc
+16:59:55 REST API on /fortio/rest/run, /fortio/rest/status, /fortio/rest/stop, /fortio/rest/dns
+16:59:55 Debug endpoint on /debug, Additional Echo on /debug/echo/, Flags on /fortio/flags, and Metrics on /debug/metrics
+{"ts":1686959995398570,"level":"info","file":"fortio_main.go","line":292,"msg":"All fortio 1.55.0 h1:4V6Fzt3AANoGS9H3A88Ddz2rSyqwcjM90DXiGTKlCMA= go1.20.5 arm64 darwin servers started!"}
+{"ts":1686960007992730,"level":"info","file":"http_logging.go","line":73,"msg":"UI","method":"GET","url":"/fortio/","proto":"HTTP/1.1","remote_addr":"[::1]:65507","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+{"ts":1686960007999722,"level":"info","file":"http_logging.go","line":73,"msg":"Static","method":"GET","url":"/fortio/1.55.0/static/js/Chart.min.js","proto":"HTTP/1.1","remote_addr":"[::1]:65507","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+{"ts":1686960008010001,"level":"info","file":"http_logging.go","line":73,"msg":"Static","method":"GET","url":"/fortio/1.55.0/static/js/fortio_chart.js","proto":"HTTP/1.1","remote_addr":"[::1]:65508","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+{"ts":1686960008010049,"level":"info","file":"http_logging.go","line":73,"msg":"Static","method":"GET","url":"/fortio/1.55.0/static/css/fortio.css","proto":"HTTP/1.1","remote_addr":"[::1]:65530","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+{"ts":1686960008059117,"level":"info","file":"http_logging.go","line":73,"msg":"Static","method":"GET","url":"/fortio/1.55.0/static/img/fortio-logo-gradient-no-bg.svg","proto":"HTTP/1.1","remote_addr":"[::1]:65508","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+{"ts":1686960009987063,"level":"info","file":"http_logging.go","line":73,"msg":"UI","method":"GET","url":"/fortio/debug","proto":"HTTP/1.1","remote_addr":"[::1]:65508","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+{"ts":1686960010054721,"level":"info","file":"http_logging.go","line":73,"msg":"Static","method":"GET","url":"/fortio/1.55.0/static/img/favicon.ico","proto":"HTTP/1.1","remote_addr":"[::1]:65508","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+{"ts":1686960014058682,"level":"info","file":"http_logging.go","line":73,"msg":"Debug","method":"GET","url":"/debug","proto":"HTTP/1.1","remote_addr":"[::1]:65508","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+{"ts":1686960025512361,"level":"info","file":"http_logging.go","line":73,"msg":"Debug","method":"GET","url":"/debug","proto":"HTTP/1.1","remote_addr":"[::1]:65508","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
