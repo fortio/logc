@@ -39,3 +39,55 @@
 {"ts":1686960010054721,"level":"info","file":"http_logging.go","line":73,"msg":"Static","method":"GET","url":"/fortio/1.55.0/static/img/favicon.ico","proto":"HTTP/1.1","remote_addr":"[::1]:65508","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
 {"ts":1686960014058682,"level":"info","file":"http_logging.go","line":73,"msg":"Debug","method":"GET","url":"/debug","proto":"HTTP/1.1","remote_addr":"[::1]:65508","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
 {"ts":1686960025512361,"level":"info","file":"http_logging.go","line":73,"msg":"Debug","method":"GET","url":"/debug","proto":"HTTP/1.1","remote_addr":"[::1]:65508","header.x-forwarded-proto":"","header.x-forwarded-for":"","user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"}
+{"ts":1686962920173627,"level":"info","file":"logger.go","line":224,"msg":"Log level is now 0 Debug (was 2 Info)"}
+{"ts":1686962920173675,"level":"info","file":"scli.go","line":96,"msg":"Starting Φορτίο 1.55.0 h1:4V6Fzt3AANoGS9H3A88Ddz2rSyqwcjM90DXiGTKlCMA= go1.20.5 arm64 darwin"}
+{"ts":1686962920173948,"level":"trace","file":"stats.go","line":536,"msg":"Will use [50 75 90 99 99.9] for percentiles"}
+{"ts":1686962920173960,"level":"trace","file":"commonflags.go","line":182,"msg":"Will verify TLS certificates, use -k / -https-insecure to disable"}
+Fortio 1.55.0 running at 8 queries per second, 10->10 procs, for 5s: www.google.com
+{"ts":1686962920173994,"level":"trace","file":"fortio_main.go","line":403,"msg":"Generated Labels: www.google.com , K6922C3FGJ"}
+{"ts":1686962920174012,"level":"info","file":"httprunner.go","line":99,"msg":"Starting http test","run":"0","url":"www.google.com","threads":"4","qps":"8.0","warmup":"parallel","conn-reuse":""}
+{"ts":1686962920174091,"level":"trace","file":"periodic.go","line":161,"msg":"NewAborter called 0x1400007ee00 {Aborter 0x1400007ee00 stopChan 0x1400008a600 startChan 0x1400007c460 hasStarted false stopRequested false}"}
+{"ts":1686962920174109,"level":"trace","file":"http_client.go","line":147,"msg":"URLSchemeCheck &{TLSOptions:{Insecure:false MTLS:false CACert: Cert: Key: UnixDomainSocket:} URL:www.google.com NumConnections:1 Compression:false DisableFastClient:false HTTP10:false H2:false DisableKeepAlive:false AllowHalfClose:false FollowRedirects:false initDone:true https:false Resolve: extraHeaders:map[] hostOverride: HTTPReqTimeOut:3s UserCredentials: ContentType: Payload:[] LogErrors:true ID:0 UniqueID:0 SequentialWarmup:false ConnReuseRange:[0 0] NoResolveEachConn:false Offset:0s Resolution:0.001 ClientTrace:<nil> Transport:<nil> PayloadReader:<nil> DataWriter:<nil>}"}
+{"ts":1686962920174130,"level":"warn","file":"http_client.go","line":170,"msg":"Assuming http:// on missing scheme for 'www.google.com'"}
+{"ts":1686962920174156,"level":"trace","file":"http_client.go","line":807,"msg":"[0] No port specified, using http"}
+{"ts":1686962920174170,"level":"dbug","file":"network.go","line":355,"msg":"Resolve() called with host=www.google.com port=http proto=tcp"}
+{"ts":1686962920174184,"level":"trace","file":"periodic.go","line":324,"msg":"WATCHER 1 First outstanding run starting, catching signal"}
+{"ts":1686962920174271,"level":"trace","file":"periodic.go","line":330,"msg":"WATCHER 1 starting new watcher for signal! chan  g 0x14000118000 r 0x1400008a600 (3)"}
+{"ts":1686962920175939,"level":"trace","file":"network.go","line":406,"msg":"Resolved www.google.com:http to tcp ip4 cached-rr #0 addr 142.250.69.196:80"}
+{"ts":1686962920175984,"level":"dbug","file":"http_client.go","line":865,"msg":"[0] Created client:\n142.250.69.196:80\nGET / HTTP/1.1\r\nHost: www.google.com\r\nUser-Agent: fortio.org/fortio-1.55.0\r\n\r\n"}
+{"ts":1686962920176008,"level":"trace","file":"http_client.go","line":807,"msg":"[1] No port specified, using http"}
+{"ts":1686962920176017,"level":"dbug","file":"network.go","line":355,"msg":"Resolve() called with host=www.google.com port=http proto=tcp"}
+{"ts":1686962920176459,"level":"trace","file":"network.go","line":406,"msg":"Resolved www.google.com:http to tcp ip4 cached-rr #0 addr 142.250.69.196:80"}
+{"ts":1686962920176472,"level":"dbug","file":"http_client.go","line":865,"msg":"[1] Created client:\n142.250.69.196:80\nGET / HTTP/1.1\r\nHost: www.google.com\r\nUser-Agent: fortio.org/fortio-1.55.0\r\n\r\n"}
+{"ts":1686962920176487,"level":"trace","file":"http_client.go","line":807,"msg":"[2] No port specified, using http"}
+{"ts":1686962920176492,"level":"dbug","file":"network.go","line":355,"msg":"Resolve() called with host=www.google.com port=http proto=tcp"}
+{"ts":1686962920176760,"level":"trace","file":"network.go","line":406,"msg":"Resolved www.google.com:http to tcp ip4 cached-rr #0 addr 142.250.69.196:80"}
+{"ts":1686962920176775,"level":"dbug","file":"http_client.go","line":865,"msg":"[2] Created client:\n142.250.69.196:80\nGET / HTTP/1.1\r\nHost: www.google.com\r\nUser-Agent: fortio.org/fortio-1.55.0\r\n\r\n"}
+{"ts":1686962920176784,"level":"trace","file":"http_client.go","line":807,"msg":"[3] No port specified, using http"}
+{"ts":1686962920176788,"level":"dbug","file":"network.go","line":355,"msg":"Resolve() called with host=www.google.com port=http proto=tcp"}
+{"ts":1686962920177088,"level":"trace","file":"network.go","line":406,"msg":"Resolved www.google.com:http to tcp ip4 cached-rr #0 addr 142.250.69.196:80"}
+{"ts":1686962920177098,"level":"dbug","file":"http_client.go","line":865,"msg":"[3] Created client:\n142.250.69.196:80\nGET / HTTP/1.1\r\nHost: www.google.com\r\nUser-Agent: fortio.org/fortio-1.55.0\r\n\r\n"}
+{"ts":1686962920232289,"level":"dbug","file":"stats.go","line":291,"msg":"v 0.055149 -> scaledVal 55.14858399999999961 ceil 56.000000 delta 0.1485839999999996 - svInt 55"}
+{"ts":1686962920721095,"level":"trace","file":"httprunner.go","line":164,"msg":"first hit of url http://www.google.com: status 200, headers 1153, total 18447"}
+{"ts":1686962920790052,"level":"trace","file":"periodic.go","line":482,"msg":"RUNNER starting... can now be Abort()ed, telling {Aborter 0x1400007ee00 stopChan 0x1400008a600 startChan 0x1400007c460 hasStarted true stopRequested false} - 0x1400007c460"}
+Starting at 8 qps with 4 thread(s) [gomax 10] for 5s : 10 calls each (total 40)
+{"ts":1686962920790317,"level":"dbug","file":"httprunner.go","line":61,"msg":"Calling in 3"}
+{"ts":1686962925891206,"level":"info","file":"periodic.go","line":832,"msg":"T002 ended after 5.101071917s : 10 calls. qps=1.9603722830634227"}
+{"ts":1686962925891243,"level":"info","file":"stats.go","line":441,"msg":"T002 Function duration : count 10 avg 0.10107929 +/- 0.006625 min 0.093405209 max 0.116541125 sum 1.01079288\n# range, mid point, percentile, count\n>= 0.0934052 <= 0.1 , 0.0967026 , 40.00, 4\n> 0.1 <= 0.116541 , 0.108271 , 100.00, 6\n# target 99% 0.116265\n"}
+{"ts":1686962925891276,"level":"info","file":"stats.go","line":441,"msg":"T002 Sleep time : count 9 avg 0.45193328 +/- 0.007935 min 0.437672402 max 0.461060902 sum 4.06739953\n# range, mid point, percentile, count\n>= 0.437672 <= 0.449 , 0.443336 , 33.33, 3\n> 0.449 <= 0.461061 , 0.45503 , 100.00, 6\n# target 50% 0.452015\n"}
+Ended after 5.101174709s : 40 calls. qps=7.8413
+{"ts":1686962925893299,"level":"err","file":"foo.go","line":198,"msg":"test err"}
+{"ts":1686962925893299,"level":"crit","file":"foo.go","line":199,"msg":"test crit"}
+All done 40 calls (plus 4 warmup) 136.823 ms avg, 7.8 qps
+{"ts":1686962925894542,"level":"fatal","file":"fortio_main.go","line":500,"msg":"Unable to create ./foo: open ./foo: permission denied"}
+panic: aborting...
+
+goroutine 1 [running]:
+fortio.org/log.Fatalf({0x100a4010b?, 0x5?}, {0x1400026b418?, 0x0?, 0x100a3084e?})
+	/private/tmp/fortio-20230614-4695-1b5de0i/tmp/fortio_build/pkg/mod/fortio.org/log@v1.4.0/logger.go:374 +0x80
+fortio.org/fortio/cli.fortioLoad(0x0, {0x1400003a450, 0x5, 0x5}, 0x0)
+	/private/tmp/fortio-20230614-4695-1b5de0i/tmp/fortio_build/pkg/mod/fortio.org/fortio@v1.55.0/cli/fortio_main.go:500 +0xec4
+fortio.org/fortio/cli.FortioMain(0x100b9d920?)
+	/private/tmp/fortio-20230614-4695-1b5de0i/tmp/fortio_build/pkg/mod/fortio.org/fortio@v1.55.0/cli/fortio_main.go:226 +0x450
+main.main()
+	/private/tmp/fortio-20230614-4695-1b5de0i/tmp/fortio_build/pkg/mod/fortio.org/fortio@v1.55.0/main.go:23 +0x20
