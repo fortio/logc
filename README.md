@@ -17,7 +17,7 @@ If you have a recent go installation already:
 CGO_ENABLED=0 go install fortio.org/logc@latest
 ```
 
-Or get on of the [binary releases](https://github.com/fortio/logc/releases)
+Or get one of the [binary releases](https://github.com/fortio/logc/releases)
 
 Or using the docker image
 ```shell
