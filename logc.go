@@ -72,6 +72,8 @@ func GetAttributes(line string) string {
 
 func main() {
 	noColorFlag := flag.Bool("no-color", false, "Do not colorize output")
+	cli.ArgsHelp = " < log.json\nor for instance\n\tfortio server 2>&1 | logc\n" +
+		"to convert JSON fortio logger lines from stdin to (ansi) colorized text"
 	cli.Main()
 	// read stdin line by line
 	scanner := bufio.NewScanner(os.Stdin)
