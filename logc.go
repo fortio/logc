@@ -23,7 +23,7 @@ const (
 	Cyan      = "\033[36m"
 	Gray      = "\033[37m"
 	White     = "\033[97m"
-	BrightRed = "\033[91m]"
+	BrightRed = "\033[91m"
 )
 
 // Takes json string level and returns the 1 letter short and color to use for it.

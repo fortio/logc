@@ -1,3 +1,3 @@
 
 manual-check:
-	TZ=UTC go run -race . < log1
+	go run ./levelsDemo 2>&1 | TZ=UTC go run -race .
