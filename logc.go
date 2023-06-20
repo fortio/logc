@@ -49,6 +49,8 @@ func LevelToColor(levelStr string) (string, string) {
 	return "?", ""
 }
 
+// GetAttributes returns the remaining/additional attributes after the `msg`, if any, for text output.
+// faster than reparsing as a map.
 func GetAttributes(line string) string {
 	idx1 := strings.Index(line, `"msg":"`)
 	if idx1 < 0 {
@@ -112,6 +114,7 @@ func main() {
 		if noColor {
 			color = ""
 		}
+		// Msg can be multi line.
 		fmt.Printf("%s%s %s %s:%d> %s%s%s\n", color, tsStr, lvl, e.File, e.Line, e.Msg, GetAttributes(string(line)), reset)
 	}
 }

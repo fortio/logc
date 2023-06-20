@@ -28,3 +28,17 @@ Or using brew (mac)
 ```shell
 brew install fortio/tap/logc
 ```
+
+# Development
+
+run both
+```
+make
+```
+which is `go test -v ./...`
+
+and
+```
+make manual-check
+```
+which generates colorized and properly escaped/converted output
