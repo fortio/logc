@@ -1,5 +1,5 @@
 # logc
-Convert fortio.org/log JSON structured log back to console/text output with colors
+Converts [fortio.org/log](https://github.com/fortio/log#log) JSON structured log back to console/text output with colors
 
 ## Example
 ```
@@ -28,3 +28,17 @@ Or using brew (mac)
 ```shell
 brew install fortio/tap/logc
 ```
+
+# Development
+
+run both
+```
+make
+```
+which is `go test -v ./...`
+
+and
+```
+make manual-check
+```
+which generates colorized and properly escaped/converted output
