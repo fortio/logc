@@ -31,14 +31,7 @@ brew install fortio/tap/logc
 
 # Development
 
-run both
+Run make for both go tests and human check colorization example
 ```
 make
 ```
-which is `go test -v ./...`
-
-and
-```
-make manual-check
-```
-which generates colorized and properly escaped/converted output
