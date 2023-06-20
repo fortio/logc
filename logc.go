@@ -114,7 +114,11 @@ func main() {
 		if noColor {
 			color = ""
 		}
+		fileLine := ""
+		if e.Line != 0 {
+			fileLine = fmt.Sprintf("%s:%d> ", e.File, e.Line)
+		}
 		// Msg can be multi line.
-		fmt.Printf("%s%s %s %s:%d> %s%s%s\n", color, tsStr, lvl, e.File, e.Line, e.Msg, GetAttributes(string(line)), reset)
+		fmt.Printf("%s%s %s %s%s%s%s\n", color, tsStr, lvl, fileLine, e.Msg, GetAttributes(string(line)), reset)
 	}
 }
