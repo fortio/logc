@@ -1,5 +1,5 @@
 # logc
-Convert fortio.org/log JSON structured log back to console/text output with colors
+Converts [fortio.org/log](https://github.com/fortio/log#log) JSON structured log back to console/text output with colors
 
 ## Example
 ```

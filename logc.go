@@ -55,19 +55,26 @@ func GetAttributes(line string) string {
 		log.Critf("Bug line without msg tag %q", line)
 		return ""
 	}
-	idx2 := strings.Index(line[idx1+7:], `"`)
-	if idx2 < 0 {
-		log.Critf("Bug line without close quote %q", line)
-		return ""
+	i := idx1 + 7
+	for {
+		idx2 := strings.Index(line[i:], `"`)
+		if idx2 < 0 {
+			log.Critf("Bug line without close quote %q", line)
+			return ""
+		}
+		i += idx2 + 1
+		// not an escaped quote inside msg (\") but \\" is ok (see test)
+		if line[i-2] != '\\' || line[i-3] == '\\' {
+			break
+		}
 	}
-	idx2 += idx1 + 7
 	end := len(line) - 1
-	if idx2+1 == end {
+	if i == end {
 		log.Debugf("no attributes for %q", line)
 		return ""
 	}
-	log.Debugf("found attributes at %d/%d for %q", idx2, end, line)
-	return ": " + line[idx2+2:end] // better more efficient way?
+	log.Debugf("found attributes at %d/%d for %q", i, end, line)
+	return ": " + line[i+1:end] // better more efficient way?
 }
 
 func main() {
