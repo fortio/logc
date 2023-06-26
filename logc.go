@@ -102,7 +102,7 @@ func main() {
 			fmt.Printf("! %s\n", string(line))
 			continue
 		}
-		ts := time.UnixMicro(e.TS)
+		ts := e.Time()
 		// Each time the day changes we print a header
 		if ts.YearDay() != prevDate.YearDay() {
 			fmt.Printf("#### %s ####\n", ts.Format("2006-01-02"))
