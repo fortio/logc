@@ -87,38 +87,43 @@ func main() {
 	// read stdin line by line
 	scanner := bufio.NewScanner(os.Stdin)
 	prevDate := time.UnixMilli(0)
-	reset := Reset
 	noColor := *noColorFlag
-	if noColor {
-		reset = ""
-	}
 	for scanner.Scan() {
 		line := scanner.Bytes()
-		// json deserialize
-		e := log.JSONEntry{}
-		err := json.Unmarshal(line, &e)
-		if err != nil {
-			log.LogVf("Error unmarshalling %q: %v", string(line), err)
-			fmt.Printf("! %s\n", string(line))
-			continue
-		}
+		ProcessLogLine(&prevDate, noColor, line)
+	}
+}
+
+func ProcessLogLine(prevDate *time.Time, noColor bool, line []byte) {
+	// json deserialize
+	e := log.JSONEntry{}
+	err := json.Unmarshal(line, &e)
+	if err != nil {
+		log.LogVf("Error unmarshalling %q: %v", string(line), err)
+		fmt.Printf("! %s\n", string(line))
+		return
+	}
+	tsStr := ""
+	if e.TS != 0 {
 		ts := e.Time()
 		// Each time the day changes we print a header
 		if ts.YearDay() != prevDate.YearDay() {
 			fmt.Printf("#### %s ####\n", ts.Format("2006-01-02"))
-			prevDate = ts
+			*prevDate = ts
 		}
-		tsStr := ts.Format("15:04:05.000000")
-		// uppercase level
-		lvl, color := LevelToColor(e.Level)
-		if noColor {
-			color = ""
-		}
-		fileLine := ""
-		if e.Line != 0 {
-			fileLine = fmt.Sprintf("%s:%d> ", e.File, e.Line)
-		}
-		// Msg can be multi line.
-		fmt.Printf("%s%s %s %s%s%s%s\n", color, tsStr, lvl, fileLine, e.Msg, GetAttributes(string(line)), reset)
+		tsStr = ts.Format("15:04:05.000000 ")
 	}
+	reset := Reset
+	// uppercase single letter level + color extraction
+	lvl, color := LevelToColor(e.Level)
+	if noColor {
+		color = ""
+		reset = ""
+	}
+	fileLine := ""
+	if e.Line != 0 {
+		fileLine = fmt.Sprintf("%s:%d> ", e.File, e.Line)
+	}
+	// Msg can be multi line.
+	fmt.Printf("%s%s%s %s%s%s%s\n", color, tsStr, lvl, fileLine, e.Msg, GetAttributes(string(line)), reset)
 }
