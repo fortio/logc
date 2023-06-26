@@ -4,13 +4,19 @@ import (
 	"fmt"
 
 	"fortio.org/log"
+	"fortio.org/scli"
 )
 
 func main() {
-	log.Config.JSON = true
+	// just to avoid I scli.go:101> Starting levelsDemo dev  go1.20.5 arm64 darwin
+	// so it looks pretty starting at debug and increasing levels.
+	log.SetLogLevelQuiet(log.Warning)
+	scli.ServerMain()
+	// So log fatal doesn't panic nor exit (so we can print the non json last line).
 	log.Config.FatalPanics = false
 	log.Config.FatalExit = func(int) {}
 	log.SetLogLevelQuiet(log.Debug)
+	// Meat of the example:
 	log.Debugf("This is a debug message ending with backslash \\")
 	log.LogVf("This is a verbose message")
 	log.Printf("This an always printed, file:line omitted message")
