@@ -1,6 +1,13 @@
 package main
 
-import "testing"
+import (
+	"bufio"
+	"strings"
+	"testing"
+	"time"
+
+	"fortio.org/log"
+)
 
 func TestGetAttributes(t *testing.T) {
 	for _, tc := range []struct {
@@ -16,6 +23,26 @@ func TestGetAttributes(t *testing.T) {
 		got := GetAttributes(tc.in)
 		if got != tc.want {
 			t.Errorf("GetAttributes(%s) = '%s', want '%s'", tc.in, got, tc.want)
+		}
+	}
+}
+
+func TestLevels(t *testing.T) {
+	var zeroTime time.Time
+	for _, tc := range []struct {
+		in   string
+		want string
+	}{
+		{`{"level":"trace","msg":"foo"}`, log.Colors.Cyan + "V foo" + log.Colors.Reset + "\n"},
+		{`{"level":"xyz","msg":"foo"}`, log.Colors.Blue + "? foo" + log.Colors.Reset + "\n"},
+	} {
+		buf := &strings.Builder{}
+		w := bufio.NewWriter(buf)
+		ProcessLogLine(w, &zeroTime, false, []byte(tc.in))
+		w.Flush()
+		got := buf.String()
+		if got != tc.want {
+			t.Errorf("LevelToColor(%s) = '%s', want '%s'", tc.in, got, tc.want)
 		}
 	}
 }
