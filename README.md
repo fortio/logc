@@ -37,3 +37,9 @@ Run make for both go tests and human check colorization example
 ```
 make
 ```
+
+Update the screenshot:
+
+```
+make screenshot
+```
