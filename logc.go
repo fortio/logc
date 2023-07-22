@@ -81,12 +81,14 @@ func ProcessLogLine(w io.Writer, prevDate *time.Time, noColor bool, line []byte)
 	tsStr := ""
 	reset := log.Colors.Reset
 	darkGrey := log.Colors.DarkGray
+	grey := log.Colors.Gray
 	// uppercase single letter level + color extraction
 	lvl, color := LevelToColor(e.Level)
 	if noColor {
 		color = ""
 		reset = ""
 		darkGrey = ""
+		grey = ""
 	}
 	if e.TS != 0 {
 		ts := e.Time()
@@ -97,6 +99,9 @@ func ProcessLogLine(w io.Writer, prevDate *time.Time, noColor bool, line []byte)
 		}
 		// Use full microseconds resolution unlike the log built in color version which stops at millis.
 		tsStr = ts.Format(darkGrey + "15:04:05.000000 ")
+	}
+	if e.R > 0 {
+		tsStr += fmt.Sprintf(grey+"[%d] ", e.R)
 	}
 	fileLine := ""
 	if e.Line != 0 {
