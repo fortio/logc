@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	fortio.org/cli v1.2.0
-	fortio.org/log v1.8.1
+	fortio.org/log v1.9.0
 	fortio.org/scli v1.9.0
 )
 
