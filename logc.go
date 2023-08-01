@@ -55,21 +55,25 @@ func GetAttributes(line string) string {
 }
 
 func main() {
-	noColorFlag := flag.Bool("no-color", false, "Do not colorize output")
+	noColorFlag := flag.Bool("no-color", false, "Do not colorize output (same as -logger-no-color)")
 	cli.ArgsHelp = " < log.json\nor for instance\n\tfortio server 2>&1 | logc\n" +
 		"to convert JSON fortio logger lines from stdin to (ansi) colorized text"
 	cli.Main()
 	// read stdin line by line
 	scanner := bufio.NewScanner(os.Stdin)
 	prevDate := time.UnixMilli(0)
-	noColor := *noColorFlag
+	if *noColorFlag {
+		log.Debugf("Disabling color - was %v", log.Color)
+		log.Config.ConsoleColor = false
+		log.SetColorMode()
+	}
 	for scanner.Scan() {
 		line := scanner.Bytes()
-		ProcessLogLine(os.Stdout, &prevDate, noColor, line)
+		ProcessLogLine(os.Stdout, &prevDate, line)
 	}
 }
 
-func ProcessLogLine(w io.Writer, prevDate *time.Time, noColor bool, line []byte) {
+func ProcessLogLine(w io.Writer, prevDate *time.Time, line []byte) {
 	// json deserialize
 	e := log.JSONEntry{}
 	err := json.Unmarshal(line, &e)
@@ -79,17 +83,8 @@ func ProcessLogLine(w io.Writer, prevDate *time.Time, noColor bool, line []byte)
 		return
 	}
 	tsStr := ""
-	reset := log.Colors.Reset
-	darkGrey := log.Colors.DarkGray
-	grey := log.Colors.Gray
 	// uppercase single letter level + color extraction
 	lvl, color := LevelToColor(e.Level)
-	if noColor {
-		color = ""
-		reset = ""
-		darkGrey = ""
-		grey = ""
-	}
 	if e.TS != 0 {
 		ts := e.Time()
 		// Each time the day changes we print a header
@@ -98,15 +93,15 @@ func ProcessLogLine(w io.Writer, prevDate *time.Time, noColor bool, line []byte)
 			*prevDate = ts
 		}
 		// Use full microseconds resolution unlike the log built in color version which stops at millis.
-		tsStr = ts.Format(darkGrey + "15:04:05.000000 ")
+		tsStr = ts.Format(log.Colors.DarkGray + "15:04:05.000000 ")
 	}
 	if e.R > 0 {
-		tsStr += fmt.Sprintf(grey+"[%d] ", e.R)
+		tsStr += fmt.Sprintf(log.Colors.Gray+"[%d] ", e.R)
 	}
 	fileLine := ""
 	if e.Line != 0 {
 		fileLine = fmt.Sprintf("%s:%d> ", e.File, e.Line)
 	}
 	// Msg can be multi line.
-	fmt.Fprintf(w, "%s%s%s %s%s%s%s\n", tsStr, color, lvl, fileLine, e.Msg, GetAttributes(string(line)), reset)
+	fmt.Fprintf(w, "%s%s%s %s%s%s%s\n", tsStr, color, lvl, fileLine, e.Msg, GetAttributes(string(line)), log.Colors.Reset)
 }
