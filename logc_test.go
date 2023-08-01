@@ -29,6 +29,8 @@ func TestGetAttributes(t *testing.T) {
 
 func TestLevels(t *testing.T) {
 	var zeroTime time.Time
+	log.Config.ForceColor = true
+	log.SetColorMode()
 	for _, tc := range []struct {
 		in   string
 		want string
@@ -38,7 +40,7 @@ func TestLevels(t *testing.T) {
 	} {
 		buf := &strings.Builder{}
 		w := bufio.NewWriter(buf)
-		ProcessLogLine(w, &zeroTime, false, []byte(tc.in))
+		ProcessLogLine(w, &zeroTime, []byte(tc.in))
 		w.Flush()
 		got := buf.String()
 		if got != tc.want {
