@@ -35,7 +35,8 @@ func TestLevels(t *testing.T) {
 		in   string
 		want string
 	}{
-		{`{"level":"trace","msg":"foo"}`, log.Colors.Cyan + "V foo" + log.Colors.Reset + "\n"},
+		{`{"level":"trace","msg":"foo"}`, log.Colors.Cyan + "Verb" + log.Colors.DarkGray + ">" +
+			log.Colors.Cyan + "foo" + log.Colors.Reset + "\n"},
 		{`{"level":"xyz","msg":"foo"}`, log.Colors.Blue + "? foo" + log.Colors.Reset + "\n"},
 	} {
 		buf := &strings.Builder{}

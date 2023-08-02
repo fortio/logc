@@ -21,7 +21,8 @@ func LevelToColor(levelStr string) (string, string) {
 		log.Critf("Bug/Unknown level %q", levelStr)
 		return "?", log.Colors.Blue
 	}
-	return log.LevelToStrA[level][0:1], log.LevelToColor[level]
+	log.Debugf("level %q -> %d", levelStr, level)
+	return log.ColorLevelToStr(level), log.LevelToColor[level]
 }
 
 // GetAttributes returns the remaining/additional attributes after the `msg`, if any, for text output.
@@ -101,7 +102,9 @@ func ProcessLogLine(w io.Writer, prevDate *time.Time, line []byte) {
 	fileLine := ""
 	if e.Line != 0 {
 		fileLine = fmt.Sprintf("%s:%d> ", e.File, e.Line)
+	} else {
+		lvl += ">"
 	}
 	// Msg can be multi line.
-	fmt.Fprintf(w, "%s%s%s %s%s%s%s\n", tsStr, color, lvl, fileLine, e.Msg, GetAttributes(string(line)), log.Colors.Reset)
+	fmt.Fprintf(w, "%s%s %s%s%s%s%s\n", tsStr, lvl, fileLine, color, e.Msg, GetAttributes(string(line)), log.Colors.Reset)
 }
