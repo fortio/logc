@@ -19,7 +19,7 @@ func LevelToColor(levelStr string) (string, string) {
 	level, found := log.JSONStringLevelToLevel[levelStr]
 	if !found {
 		log.Critf("Bug/Unknown level %q", levelStr)
-		return "?", log.Colors.Blue
+		return log.Colors.BrightRed + "?", log.Colors.Blue
 	}
 	log.Debugf("level %q -> %d", levelStr, level)
 	return log.ColorLevelToStr(level), log.LevelToColor[level]
