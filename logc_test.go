@@ -31,11 +31,13 @@ func TestLevels(t *testing.T) {
 	var zeroTime time.Time
 	log.Config.ForceColor = true
 	log.SetColorMode()
+	left := log.Colors.DarkGray + "["
+	right := log.Colors.DarkGray + "]"
 	for _, tc := range []struct {
 		in   string
 		want string
 	}{
-		{`{"level":"trace","msg":"foo"}`, log.Colors.Cyan + "Verb" + log.Colors.DarkGray + "> " +
+		{`{"level":"trace","msg":"foo"}`, left + log.Colors.Cyan + "VRB" + right + "> " +
 			log.Colors.Cyan + "foo" + log.Colors.Reset + "\n"},
 		{`{"level":"xyz","msg":"foo"}`, log.Colors.BrightRed + "?> " + log.Colors.Blue + "foo" + log.Colors.Reset + "\n"},
 	} {
