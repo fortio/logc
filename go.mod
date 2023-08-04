@@ -3,7 +3,7 @@ module fortio.org/logc
 go 1.18
 
 require (
-	fortio.org/cli v1.3.2
+	fortio.org/cli v1.3.3
 	fortio.org/log v1.9.3
 	fortio.org/scli v1.10.3
 )
