@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -14,7 +15,7 @@ import (
 	"fortio.org/log"
 )
 
-// Takes json string level and returns the 1 letter short and color to use for it.
+// LevelToColor takes a json string level and returns the 1 letter short and color to use for it.
 func LevelToColor(levelStr string) (string, string) {
 	level, found := log.JSONStringLevelToLevel[levelStr]
 	if !found {
@@ -61,16 +62,25 @@ func main() {
 		"to convert JSON fortio logger lines from stdin to (ansi) colorized text"
 	cli.Main()
 	// read stdin line by line
-	scanner := bufio.NewScanner(os.Stdin)
+	// Not using bufio.Scanner: it stops for good on lines > 64KB (eg NULs from a truncated log under tail -f).
+	reader := bufio.NewReader(os.Stdin)
 	prevDate := time.UnixMilli(0)
 	if *noColorFlag {
 		log.Debugf("Disabling color - was %v", log.Color)
 		log.Config.ConsoleColor = false
 		log.SetColorMode()
 	}
-	for scanner.Scan() {
-		line := scanner.Bytes()
-		ProcessLogLine(os.Stdout, &prevDate, line)
+	for {
+		line, err := reader.ReadBytes('\n')
+		if len(line) > 0 {
+			ProcessLogLine(os.Stdout, &prevDate, bytes.TrimSuffix(line, []byte("\n")))
+		}
+		if err != nil {
+			if err != io.EOF {
+				log.Errf("Error reading stdin: %v", err)
+			}
+			return
+		}
 	}
 }
 
