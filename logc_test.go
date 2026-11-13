@@ -2,8 +2,10 @@ package main
 
 import (
 	"bufio"
+	"io"
 	"strings"
 	"testing"
+	"testing/iotest"
 	"time"
 
 	"fortio.org/log"
@@ -48,6 +50,30 @@ func TestLevels(t *testing.T) {
 		got := buf.String()
 		if got != tc.want {
 			t.Errorf("LevelToColor(%s) = '%s', want '%s'", tc.in, got, tc.want)
+		}
+	}
+}
+
+func TestScanLinesMax(t *testing.T) {
+	input := "short\n" + strings.Repeat("x", 20) + "\nok\n" + strings.Repeat("y", 8) + "\nlast" + strings.Repeat("z", 30)
+	expected := []string{"short", "xxxxxxxx", "ok", "yyyyyyyy", "lastzzzz"}
+	readers := map[string]func(string) io.Reader{
+		"whole":    func(s string) io.Reader { return strings.NewReader(s) },
+		"one byte": func(s string) io.Reader { return iotest.OneByteReader(strings.NewReader(s)) },
+	}
+	for name, mk := range readers {
+		scanner := bufio.NewScanner(mk(input))
+		scanner.Buffer(make([]byte, 0, 4), 8)
+		scanner.Split(scanLinesMax(8))
+		var got []string
+		for scanner.Scan() {
+			got = append(got, scanner.Text())
+		}
+		if err := scanner.Err(); err != nil {
+			t.Errorf("%s: unexpected error %v", name, err)
+		}
+		if strings.Join(got, "|") != strings.Join(expected, "|") {
+			t.Errorf("%s: got %q expected %q", name, got, expected)
 		}
 	}
 }

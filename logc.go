@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -62,25 +61,47 @@ func main() {
 		"to convert JSON fortio logger lines from stdin to (ansi) colorized text"
 	cli.Main()
 	// read stdin line by line
-	// Not using bufio.Scanner: it stops for good on lines > 64KB (eg NULs from a truncated log under tail -f).
-	reader := bufio.NewReader(os.Stdin)
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Buffer(make([]byte, 0, 4096), maxLineSize)
+	scanner.Split(scanLinesMax(maxLineSize))
 	prevDate := time.UnixMilli(0)
 	if *noColorFlag {
 		log.Debugf("Disabling color - was %v", log.Color)
 		log.Config.ConsoleColor = false
 		log.SetColorMode()
 	}
-	for {
-		line, err := reader.ReadBytes('\n')
-		if len(line) > 0 {
-			ProcessLogLine(os.Stdout, &prevDate, bytes.TrimSuffix(line, []byte("\n")))
-		}
-		if err != nil {
-			if err != io.EOF {
-				log.Errf("Error reading stdin: %v", err)
+	for scanner.Scan() {
+		line := scanner.Bytes()
+		ProcessLogLine(os.Stdout, &prevDate, line)
+	}
+	if err := scanner.Err(); err != nil {
+		log.Errf("Error reading stdin: %v", err)
+	}
+}
+
+// maxLineSize is the longest line we process, longer ones are truncated.
+const maxLineSize = 64 * 1024
+
+// scanLinesMax is like bufio.ScanLines but truncates lines longer than max (which must be
+// at least the scanner's max token size) instead of failing with bufio.ErrTooLong,
+// which would permanently stop the scanner (eg NULs from a truncated log under tail -f).
+func scanLinesMax(maxLen int) bufio.SplitFunc {
+	skipping := false // discarding the remainder of a truncated line
+	return func(data []byte, atEOF bool) (int, []byte, error) {
+		advance, token, err := bufio.ScanLines(data, atEOF)
+		if skipping {
+			if token == nil && err == nil { // still no end of line, drop what we have
+				return len(data), nil, nil
 			}
-			return
+			skipping = false // found the end of the line, resume with the next one
+			return advance, nil, err
 		}
+		if token == nil && err == nil && len(data) >= maxLen {
+			log.Warnf("Line longer than %d bytes, truncating", maxLen)
+			skipping = true
+			return len(data), data[:maxLen], nil
+		}
+		return advance, token, err
 	}
 }
 
