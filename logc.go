@@ -15,7 +15,7 @@ import (
 	"fortio.org/log"
 )
 
-// Takes json string level and returns the 1 letter short and color to use for it.
+// LevelToColor takes a json string level and returns the 1 letter short and color to use for it.
 func LevelToColor(levelStr string) (string, string) {
 	level, found := log.JSONStringLevelToLevel[levelStr]
 	if !found {
