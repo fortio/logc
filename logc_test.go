@@ -77,3 +77,36 @@ func TestScanLinesMax(t *testing.T) {
 		}
 	}
 }
+
+// The scanner must not hold back lines following a truncated one while waiting for more input (tail -f).
+func TestScanLinesMaxNoStall(t *testing.T) {
+	// Vary the long line length so the end of line lands at different places in the read buffer.
+	for n := 8; n < 40; n++ {
+		pr, pw := io.Pipe()
+		go func() {
+			// pipe stays open, like tail -f
+			_, _ = pw.Write([]byte("short\n" + strings.Repeat("x", n) + "\nafter\n"))
+		}()
+		scanner := bufio.NewScanner(pr)
+		scanner.Buffer(make([]byte, 0, 4), 8)
+		scanner.Split(scanLinesMax(8))
+		tokens := make(chan string)
+		go func() {
+			for scanner.Scan() {
+				tokens <- scanner.Text()
+			}
+			close(tokens)
+		}()
+		for _, expected := range []string{"short", "xxxxxxxx", "after"} {
+			select {
+			case got := <-tokens:
+				if got != expected {
+					t.Errorf("n=%d: got %q expected %q", n, got, expected)
+				}
+			case <-time.After(time.Second):
+				t.Fatalf("n=%d: stalled waiting for %q", n, expected)
+			}
+		}
+		pw.Close()
+	}
+}

@@ -87,14 +87,18 @@ const maxLineSize = 64 * 1024
 // which would permanently stop the scanner (eg NULs from a truncated log under tail -f).
 func scanLinesMax(maxLen int) bufio.SplitFunc {
 	skipping := false // discarding the remainder of a truncated line
-	return func(data []byte, atEOF bool) (int, []byte, error) {
+	var split bufio.SplitFunc
+	split = func(data []byte, atEOF bool) (int, []byte, error) {
 		advance, token, err := bufio.ScanLines(data, atEOF)
 		if skipping {
 			if token == nil && err == nil { // still no end of line, drop what we have
 				return len(data), nil, nil
 			}
 			skipping = false // found the end of the line, resume with the next one
-			return advance, nil, err
+			// The scanner doesn't re-split what's left in the buffer after a nil token, it
+			// blocks reading more instead (stalling tail -f), so continue with the rest now.
+			adv2, token2, err2 := split(data[advance:], atEOF)
+			return advance + adv2, token2, err2
 		}
 		if token == nil && err == nil && len(data) >= maxLen {
 			log.Warnf("Line longer than %d bytes, truncating", maxLen)
@@ -103,6 +107,7 @@ func scanLinesMax(maxLen int) bufio.SplitFunc {
 		}
 		return advance, token, err
 	}
+	return split
 }
 
 func ProcessLogLine(w io.Writer, prevDate *time.Time, line []byte) {
